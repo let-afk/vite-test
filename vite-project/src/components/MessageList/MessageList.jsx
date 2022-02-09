@@ -2,9 +2,9 @@ import Message from '../Message/Message';
 
 export const MessageList = ({messageList}) => {
     return (
-        <>     
-            {messageList.map(({author, message}, i) => (
-            <Message key={i} author={author} message={message} />
+        <>  
+            {messageList.map(({author, message, id}) => (
+            <Message key={id} author={author} message={message} />
             ))}
         </> 
     );

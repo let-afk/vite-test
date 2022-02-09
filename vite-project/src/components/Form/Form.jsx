@@ -7,6 +7,12 @@ export const Form = ({onSubmit}) => {
     const [message, setMessage] = useState(""); 
     const [author, setAuthor] = useState("");
     
+    const value = {
+        author: author,
+        message: message,
+        id: new Date().getTime(),
+    }
+
     const handleChange = (e) => {
         setMessage(e.target.value);
     }
@@ -17,7 +23,7 @@ export const Form = ({onSubmit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(author, message);
+        onSubmit(value);
         setAuthor("");
         setMessage("");
     }
