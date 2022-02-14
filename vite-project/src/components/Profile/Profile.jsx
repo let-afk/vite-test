@@ -1,18 +1,15 @@
-import { changeShowName, CHANGE_NAME } from "../../store/profile/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "../../store/profile/actions";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { selectName } from "../../store/profile/selectors"; 
 import "./Profile.sass";
 
 export const Profile = () => { 
 
     const dispatch = useDispatch();
-    const {showName, name} = useSelector(state => state);
+    const name = useSelector(selectName, shallowEqual);
 
     const [value, setValue] = useState("");
-
-    const handleShowName = () => {
-        dispatch(changeShowName);
-    }
 
     const handleChangeValue = (e) => {
         setValue(e.target.value);
@@ -22,10 +19,7 @@ export const Profile = () => {
         
         e.preventDefault();
 
-        dispatch({
-            type: CHANGE_NAME,
-            payload: value,
-        });
+        dispatch(changeName(value));
         
         setValue("");
     }
@@ -33,11 +27,10 @@ export const Profile = () => {
     return (
         <div className="profile">  
             <div className="profile-name">
-                {showName && <h2>{name}</h2>}
-                <input className="show-name" onClick={handleShowName}  type="checkbox" value={showName} />
+                <h2>{name}</h2>
             </div>
             <form onSubmit={handleChangeName}>
-                <input onChange={handleChangeValue} type="text" placeholder="enter your name" value={value} />
+                <input required onChange={handleChangeValue} type="text" placeholder="enter your name" value={value} />
                 <button type="submit">Отправить</button>
             </form>
         </div>
