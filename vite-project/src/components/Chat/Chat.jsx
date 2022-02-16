@@ -1,20 +1,24 @@
 import {Form} from '../Form/Form';
 import {MessageList} from '../MessageList/MessageList';
 import React, {useRef, useEffect} from 'react';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../store/messages/actions';
 
-export const Chat = ({messageList, setMessageList}) => {
+export const Chat = ({messageList}) => {
     const endMessage = useRef(null);
     const { chatId } = useParams();
-    const navigate = useNavigate();
+    
     const robotAnswer = {
       author: "robot",
       message: `I am a robot from ${chatId}`,
       id: new Date().getTime(),
     }
+
+    const dispatch = useDispatch();
   
-    const updateForm = ({author, message, id}) => {
-      setMessageList((prevMessageList) => ({...prevMessageList, [chatId]:[...prevMessageList[chatId], {author: author, message: message, id: id}]}))
+    const updateForm = (message) => {
+      dispatch(addMessage(message, chatId));
     }
 
     useEffect(() => {
