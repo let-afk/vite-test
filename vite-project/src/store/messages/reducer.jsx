@@ -1,16 +1,18 @@
-import { ADD_MESSAGE_LIST, ADD_MESSAGE, DELETE_MESSAGE_LIST } from "./actions"
+import { ADD_MESSAGE } from "./actions"
+import { DELETE_CHAT, ADD_CHAT } from "../chats/actions";
 
 const initialState = {};
 
 export const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_MESSAGE_LIST: {       
+        case ADD_CHAT: {       
             
-            state[action.payload]= []
+            const newState = { ...state }
+            newState[action.payload.id]= []
 
             
             return {
-                ...state,
+                ...newState,
             }
         }
         case ADD_MESSAGE: {
@@ -19,12 +21,13 @@ export const messagesReducer = (state = initialState, action) => {
                 [action.chatId]: [...state[action.chatId], action.payload]
             }
         }     
-        case DELETE_MESSAGE_LIST: {
+        case DELETE_CHAT: {
 
-            delete state[action.payload]
+            const newState = { ...state }
+            delete newState[action.payload]
 
             return {
-                ...state,
+                ...newState,
             }
         }    
         default: 

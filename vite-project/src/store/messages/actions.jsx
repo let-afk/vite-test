@@ -1,12 +1,6 @@
-export const ADD_MESSAGE_LIST = "MESSAGES::ADD_MESSAGE_LIST";
-export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
-export const DELETE_MESSAGE_LIST = "MESSAGES::DELETE_MESSAGE_LIST"
+import { v4 as uuidv4 } from 'uuid';
 
-export const addMessageList = (id) =>({
-    type: ADD_MESSAGE_LIST,
-    payload: id
-    
-})
+export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 
 export const addMessage = (value, id) => ({
     type: ADD_MESSAGE,
@@ -18,7 +12,22 @@ export const addMessage = (value, id) => ({
     chatId: id
 })
 
-export const deleteMessageList = (id) => ({
-    type: DELETE_MESSAGE_LIST,
-    payload: id
-})
+let timeout;
+
+export const addMessageWithMiddlewares = (value, id) => (dispatch) => {
+
+    dispatch(addMessage(value, id));
+    
+    if(value.author !== 'robot') {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+
+        const robotAnswer = {
+            author: "robot",
+            message: `I am a robot from ${id}`,
+            id: uuidv4(),
+            };
+
+        dispatch(addMessage(robotAnswer, id))}, 1000)
+    }    
+}

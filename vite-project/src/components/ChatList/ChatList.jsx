@@ -1,14 +1,20 @@
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import {Link, Outlet} from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { addChat } from '../../store/chats/actions';
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { addChat, deleteChat } from '../../store/chats/actions';
 import Button from '@mui/material/Button';
 import './ChatList.sass';
+import { selectChatList } from '../../store/chats/selectors';
 
-export const ChatList = ({chatList, setChatList, onClick}) => {
+export const ChatList = () => {
 
     const dispatch = useDispatch();
+
+    const chatList = useSelector(selectChatList, shallowEqual)
+
+    const onlyNaN = /\D/g; // все кроме цифр [0-9]
+    const getOnlyNum = (str) => str.replace(onlyNaN, "")
 
     const addChats = () => {
       if(chatList.length > 0) {
@@ -23,8 +29,10 @@ export const ChatList = ({chatList, setChatList, onClick}) => {
       }
     }
 
-    const removeChat = (chatId) => {
-      onClick(chatId);
+    const removeChat = (id) => {
+      const chatId =`chat${getOnlyNum(id)}`;
+        
+      dispatch(deleteChat(chatId));
     } 
     return (
       <>
