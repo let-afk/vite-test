@@ -3,6 +3,7 @@ import {Router} from './components/Router/Router';
 import {Provider} from 'react-redux';
 import {persistor, store} from './store'
 import { PersistGate } from 'redux-persist/integration/react';
+import { Home } from './components/Home/Home';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <div className="container">
           <div className="App">
+            <Home />
             <Router />
           </div>
         </div>
