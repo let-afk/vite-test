@@ -1,4 +1,4 @@
-import "./App.sass";
+import "./App.scss";
 import { Router } from "./components/Router/Router";
 import { Provider } from "react-redux";
 import { store } from "./store";

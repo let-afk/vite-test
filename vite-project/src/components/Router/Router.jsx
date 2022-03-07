@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { ChatList } from "../ChatList/ChatList";
 import { Profile } from "../Profile/Profile";
 import { ChatContainer } from "../Chat/ChatContainer";
-import "./Router.sass";
+import "./Router.scss";
 import { AnimeList } from "../AnimeList/AnimeList";
 import { Home } from "../Home/Home";
 import { Login } from "../Login/Login";

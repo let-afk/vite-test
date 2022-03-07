@@ -4,7 +4,8 @@ import { selectName } from "../../store/profile/selectors";
 import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import "./Form.sass";
+import "./Form.scss";
+
 export const Form = ({ onSubmit }) => {
   const [message, setMessage] = useState("");
 

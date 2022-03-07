@@ -1,4 +1,4 @@
-import "./Message.sass";
+import "./Message.scss";
 import React from "react";
 import PropTypes from "prop-types";
 

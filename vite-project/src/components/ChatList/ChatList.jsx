@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addChat, chatsTracking, deleteChat } from "../../store/chats/actions";
 import Button from "@mui/material/Button";
-import "./ChatList.sass";
+import "./ChatList.scss";
 import { selectChatList } from "../../store/chats/selectors";
 import {
   onChildAdded,

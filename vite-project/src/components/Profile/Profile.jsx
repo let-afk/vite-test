@@ -2,7 +2,7 @@ import { changeName, profileNameTracking } from "../../store/profile/actions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { selectName } from "../../store/profile/selectors";
-import "./Profile.sass";
+import "./Profile.scss";
 import { ProfileNameRef, logout } from "../../services/firebase";
 import { onValue, set } from "firebase/database";
 
