@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addMessageWithMiddlewares } from "../../store/messages/actions";
@@ -6,8 +6,7 @@ import { selectMessageList } from "../../store/messages/selectors";
 import { Chat } from "./Chat";
 import { onChildAdded, onValue, set } from "firebase/database";
 import {
-  getMessageRefById,
-  getMessageRefByMsgId,
+  getMessageRefByIdMsgId,
   getMessagesRefById,
   messagesRef,
 } from "../../services/firebase";
@@ -20,8 +19,11 @@ export const ChatContainer = () => {
 
   const dispatch = useDispatch();
 
+  const [msgId, setMsgId] = useState("");
+
   const updateForm = (message) => {
-    set(getMessageRefById(chatId, message.id), {
+    setMsgId(message.id);
+    set(getMessageRefByIdMsgId(chatId, message.id), {
       message: message.message,
       author: message.author,
       chatId: chatId,
@@ -29,8 +31,8 @@ export const ChatContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(addMessageWithMiddlewares(chatId));
-  }, []);
+    dispatch(addMessageWithMiddlewares(chatId, msgId));
+  }, [chatId]);
 
   useEffect(() => {
     endMessage.current?.scrollIntoView();

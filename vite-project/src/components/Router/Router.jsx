@@ -24,8 +24,6 @@ export const Router = () => {
         setAuthed(false);
       }
     });
-
-    console.log(authed);
   }, []);
 
   return (

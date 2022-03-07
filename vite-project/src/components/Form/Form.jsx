@@ -1,22 +1,24 @@
-import "./Form.sass";
 import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { selectName } from "../../store/profile/selectors";
 import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
+import "./Form.sass";
 export const Form = ({ onSubmit }) => {
   const [message, setMessage] = useState("");
 
   const name = useSelector(selectName, shallowEqual);
 
+  const dash = /-/g;
+
+  const unDash = (str) => str.replace(dash, "");
+
   const value = {
     author: name,
     message: message,
-    id: uuidv4(),
+    id: unDash(uuidv4()),
   };
-
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
