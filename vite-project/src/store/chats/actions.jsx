@@ -17,9 +17,15 @@ export const deleteChat = (id) => ({
   payload: id,
 });
 
-export const chatsTracking = () => (dispatch) => {
+export const chatsTracking = () => (dispatch, getState) => {
   onChildAdded(chatsRef, (snapshot) => {
-    dispatch(addChat(snapshot.val()));
+    if (
+      getState().chats.findIndex(
+        (chat) => chat.id === `chat${snapshot.val()}`
+      ) === -1
+    ) {
+      dispatch(addChat(snapshot.val()));
+    }
   });
 
   onChildRemoved(chatsRef, (snapshot) => {

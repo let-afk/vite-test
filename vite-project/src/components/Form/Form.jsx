@@ -5,15 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import "./Form.scss";
+import { unDash } from "../../utils/unDash";
 
 export const Form = ({ onSubmit }) => {
   const [message, setMessage] = useState("");
 
   const name = useSelector(selectName, shallowEqual);
-
-  const dash = /-/g;
-
-  const unDash = (str) => str.replace(dash, "");
 
   const value = {
     author: name,
