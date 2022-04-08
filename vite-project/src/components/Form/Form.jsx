@@ -1,32 +1,48 @@
-import './Form.sass';
-import React, {useState} from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import { selectName } from "../../store/profile/selectors";
+import { v4 as uuidv4 } from "uuid";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import "./Form.scss";
+import { unDash } from "../../utils/unDash";
 
-export const Form = ({onSubmit}) => {
-    const [message, setMessage] = useState(""); 
-    const [author, setAuthor] = useState("");
-    
-    const handleChange = (e) => {
-        setMessage(e.target.value);
-    }
+export const Form = ({ onSubmit }) => {
+  const [message, setMessage] = useState("");
 
-    const handleChangeAuthor = (e) => {
-        setAuthor(e.target.value);
-    }
+  const name = useSelector(selectName, shallowEqual);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSubmit(author, message);
-        setAuthor("");
-        setMessage("");
-    }
+  const value = {
+    author: name,
+    message: message,
+    id: unDash(uuidv4()),
+  };
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
 
-    return (
-        <form className="form"  onSubmit={handleSubmit}>
-            <TextField required margin="dense" color="primary" label="author" size="small" variant="outlined" name='author' value={author} onChange={handleChangeAuthor} />
-            <TextField required margin="dense" color="primary" label="message" size="small" variant="outlined" name='message' value={message} onChange={handleChange} />
-            <Button size="small" variant="contained" className="submit" type="submit">Отправить</Button>
-        </form>
-    );   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(value);
+    setMessage("");
+  };
+
+  return (
+    <form className="form" onSubmit={handleSubmit}>
+      <TextField
+        required
+        margin="dense"
+        color="primary"
+        label="message"
+        size="small"
+        variant="outlined"
+        name="message"
+        value={message}
+        onChange={handleChange}
+      />
+      <Button size="small" variant="contained" className="submit" type="submit">
+        Отправить
+      </Button>
+    </form>
+  );
 };

@@ -1,0 +1,1 @@
+export const API_URL_PUBLIC = 'https://anime-facts-rest-api.herokuapp.com/api/v1';
